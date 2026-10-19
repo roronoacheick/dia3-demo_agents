@@ -15,12 +15,10 @@ user_input = st.chat_input(
 )
 
 if user_input:
-    response = st.session_state.agent.ask_llm(user_input)
+    st.session_state.agent.ask_llm(user_input)
 
-    with st.chat_message("user"):
-        st.markdown(user_input)
-
-    with st.chat_message("assistant"):
-        st.markdown(response)
-
+for message in st.session_state.agent.conversation_history:
+    if message["role"] in ("user", "assistant"):
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
