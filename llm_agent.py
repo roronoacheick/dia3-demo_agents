@@ -32,6 +32,14 @@ class ConversationAgent:
     def get_conversation_history(self):
         return self.conversation_history
 
+    def transcribe_audio(self, audio_file):
+        transcription = self.groq_client.audio.transcriptions.create(
+            file=(audio_file.name, audio_file.getvalue()),
+            model="whisper-large-v3",
+            language="fr",
+        )
+        return transcription.text
+
     def ask_llm(self, question):
 
         self.update_conversation_history(role="user", content=question)
