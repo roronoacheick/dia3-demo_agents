@@ -29,6 +29,8 @@ class ConversationAgent:
             }
         )
 
+    def get_conversation_history(self):
+        return self.conversation_history
 
     def ask_llm(self, question):
 
