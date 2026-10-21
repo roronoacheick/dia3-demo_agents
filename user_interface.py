@@ -28,14 +28,15 @@ class UserInterface:
         )
 
         if chat_interaction:
-            if chat_interaction.audio:
-                question = self.conversation_agent_object.transcribe_audio(
-                    chat_interaction.audio
+            text_interaction = (
+                self.conversation_agent_object.transcribe(
+                    chat_interaction.audio.getvalue()
                 )
-            else:
-                question = chat_interaction.text
+                if chat_interaction.audio
+                else chat_interaction.text
+            )
 
-            self.conversation_agent_object.ask_llm(question)
+            self.conversation_agent_object.ask_llm(text_interaction)
 
         self.show_discussion_history()
 
